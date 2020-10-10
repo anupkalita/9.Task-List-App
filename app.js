@@ -61,22 +61,27 @@ showList();
 // Add Task Function
 function addTask(e){
 
-    let task = inputTask.value.toUpperCase();
+    if(inputTask.value != ''){
+        let task = inputTask.value.toUpperCase();
 
-    let tasks;
+        let tasks;
 
-    if(localStorage.getItem('tasks') === null){
-        tasks = [];
+        if(localStorage.getItem('tasks') === null){
+            tasks = [];
+        }
+        else{
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
+
+        tasks.push(task);
+        
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+        inputTask.value = '';
     }
     else{
-        tasks = JSON.parse(localStorage.getItem('tasks'));
+        alert('Input Field is empty!');
     }
-
-    tasks.push(task);
-    
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-
-    inputTask.value = '';
     showList();
     e.preventDefault();
 }
