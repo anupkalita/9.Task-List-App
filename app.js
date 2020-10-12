@@ -2,11 +2,14 @@ const inputTask = document.querySelector('#task');
 const form = document.querySelector('#task-form');
 const ul = document.querySelector('.collection');
 const clear = document.querySelector('.clear-tasks');
+const filter = document.querySelector('#filter');
 
 form.addEventListener('submit', addTask);
 ul.addEventListener('click', removeTask);
 clear.addEventListener('click', clearTasks);
+filter.addEventListener('keyup', filterTask);
 
+// Showlist Function
 function showList(){
 
     // Empty The List
@@ -84,6 +87,20 @@ function addTask(e){
     }
     showList();
     e.preventDefault();
+}
+
+// Filter Task Function
+function filterTask(e){
+    let task = e.target.value.toUpperCase();
+
+    for(let i=0; i<ul.children.length; i++){
+        if(ul.children[i].textContent.indexOf(task) != -1){
+            ul.children[i].style.display = 'block';
+        }
+        else{
+            ul.children[i].style.display = 'none';
+        }
+    }
 }
 
 // Remove Task Function
